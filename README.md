@@ -4,4 +4,4 @@ sxhkdrc goes into ~/.config/sxhkd
 
 place the other files whereever you want but make sure to point to the panel_colors in the panel_dzen2 file.
 
-![Screenshot](http://goput.it/2rxq.png)
+![Screenshot](http://goput.it/mbq1.png)
