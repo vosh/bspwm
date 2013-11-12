@@ -8,14 +8,22 @@ place the other files whereever you want but make sure to point to the panel_col
 
 panel_dzen2 functionality: 
 
+workspaces:
+
 left click = focus workspace
 
 right click = switch active window to clicked workspace
 
 middle click = switch active window to clicked workspace and focus
 
+while hovering workspaces:
+
 scroll up = next window
 
 scroll down = previous window
+
+layout:
+
+left click = change layout
 
 ![Screenshot](http://goput.it/mbq1.png)
