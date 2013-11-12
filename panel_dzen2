@@ -75,7 +75,7 @@ while read -r line ; do
                                 INFO=' !'
                                 ;;
                         esac
-                        wm_infos="${wm_infos}^fg(${FG})^bg(${BG})^ca(1, bspc desktop -f ${name})^ca(2, bspc window -d ${name})^ca(3, bspc window -d ${name} -f)${INFO}${name}${PADDING}^ca()^ca()^ca()"
+                        wm_infos="${wm_infos}^fg(${FG})^bg(${BG})^ca(1, bspc desktop -f ${name})^ca(3, bspc window -d ${name})^ca(2, bspc window -d ${name} -f)^ca(4, bspc window -f next)^ca(5, bspc window -f prev)${INFO}${name}${PADDING}^ca()^ca()^ca()^ca()^ca()"
                         ;;
                     L*)
                         # layout
