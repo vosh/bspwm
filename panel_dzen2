@@ -1,13 +1,13 @@
 #! /bin/sh
 #
-# Example panel for dzen2
+# panel for bspwm with clickable workspaces
+# shows if a workspace is occupied or marked urgent, etc.
+# special thanks to earsplit
 
 font_family='Terminus'
-font_size=10
+font_size=12
 
-. /home/vosh/.config/bspwm/panel/panel_colors
-
-bspc config top_padding 		15
+. /home/vosh/.config/bspwm/panel/panel_colors # point this to your config file
 
 adaptive_centering=1
 screen_width=$(sres -W)
@@ -15,32 +15,34 @@ NORMIFS=$IFS
 FIELDIFS=':'
 PADDING=' '
 
-while getopts 'af:s:' opt ; do
-    case "$opt" in
-        a)
-            adaptive_centering=1
-            ;;
-        f)
-            font_family=$OPTARG
-            ;;
-        s)
-            font_size=$OPTARG
-            ;;
-    esac
-done
+bspc config top_padding                 15
+
+#while getopts 'af:s:' opt ; do
+#case "$opt" in
+#        a)
+#            adaptive_centering=1
+#            ;;
+#        f)
+#            font_family=$OPTARG
+#            ;;
+#        s)
+#            font_size=$OPTARG
+#            ;;
+#    esac
+#done
 
 shift $((OPTIND - 1))
 
 while read -r line ; do
     case $line in
-        S*)
-            # clock output
-            sys_infos="^fg($COLOR_STATUS_FG)^bg($COLOR_STATUS_BG)${PADDING}${line#?}${PADDING}^fg()^bg()${PADDING}"
-            ;;
-#        T*)
-#            # xtitle output
-#            title="^fg($COLOR_TITLE_FG)^bg($COLOR_TITLE_BG)${PADDING}${line#?}${PADDING}^fg()^bg()"
-#            ;;
+  #      S*)
+   #         # clock output
+    #        sys_infos="^fg($COLOR_STATUS_FG)^bg($COLOR_STATUS_BG)${PADDING}${line#?}${PADDING}^fg()^bg()${PADDING}"
+     #       ;;
+      #  T*)
+       #     # xtitle output
+        #    title="^fg($COLOR_TITLE_FG)^bg($COLOR_TITLE_BG)${PADDING}${line#?}${PADDING}^fg()^bg()"
+         #   ;;
         W*)
             # bspwm internal state
             wm_infos="$PADDING"
@@ -90,12 +92,12 @@ while read -r line ; do
                                 INFO=' !'
                                 ;;
                         esac
-                        wm_infos="${wm_infos}^fg(${FG})^bg(${BG})^ca(1, bspc desktop -f ${name})^ca(2, bspc window -d ${name})^ca(3, bspc window -d ${name} -f)${INFO}${name}${PADDING}^ca()^ca()^ca()"
+                        wm_infos="${wm_infos}^fg(${FG})^bg(${BG})^ca(1, bspc desktop -f ${name})^ca(3, bspc window -d ${name})^ca(2, bspc window -d ${name} -f)^ca(4, bspc window -f next)^ca(5, bspc window -f prev)${INFO}${name}${PADDING}^ca()^ca()^ca()^ca()^ca()"
                         ;;
                     L*)
                         # layout
                         layout=$(printf "%s" "${item#?}" | sed 's/^\(.\).*/\U\1/')
-                        wm_infos="${wm_infos}^fg()^bg()${PADDING}>>^ca(1, bspc desktop -l next)^fg($COLOR_LAYOUT_FG)^bg($COLOR_LAYOUT_BG)${PADDING}$layout${PADDING}^ca()"
+                        wm_infos="${wm_infos}^fg()^bg() ${PADDING}^fg(#618485)^i(/home/vosh/.icons/stlarch/tile.xbm) ^ca(1, bspc desktop -l next)^fg($COLOR_LAYOUT_FG)^bg($COLOR_LAYOUT_BG)${PADDING}$layout${PADDING}^ca()"
                         ;;
                 esac
                 shift
@@ -103,7 +105,7 @@ while read -r line ; do
             IFS=$NORMIFS
             ;;
     esac
-    set -- $(printf '%s\0%s\0%s' "$wm_infos" "$title" "$sys_infos" | sed 's/\^[a-z]\+([^)]*)//g' | xargs -0 txtw -f "$font_family" -s "$font_size")
+    set -- $(printf '%s\0%s\0%s' "$wm_infos" | sed 's/\^[a-z]\+([^)]*)//g' | xargs -0 txtw -f "$font_family" -s "$font_size")
     left_width=$1
     center_width=$2
     right_width=$3
@@ -119,5 +121,5 @@ while read -r line ; do
             center_indent=$(( (screen_width - center_width) / 2 ))
         fi
     fi
-    printf "%s\n" "^pa($center_indent)$title^pa($left_indent)$wm_infos^pa($right_indent)$sys_infos"
+    printf "%s\n" "^pa($center_indent)$title^pa($left_indent)$wm_infos"
 done
