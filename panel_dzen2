@@ -97,7 +97,7 @@ while read -r line ; do
                     L*)
                         # layout
                         layout=$(printf "%s" "${item#?}" | sed 's/^\(.\).*/\U\1/')
-                        wm_infos="${wm_infos}^fg()^bg() ${PADDING}^fg(#618485)^i(/home/vosh/.icons/stlarch/tile.xbm) ^ca(1, bspc desktop -l next)^fg($COLOR_LAYOUT_FG)^bg($COLOR_LAYOUT_BG)${PADDING}$layout${PADDING}^ca()"
+                        wm_infos="${wm_infos}^fg()^bg() ${PADDING}^fg(#618485)^ca(1, bspc desktop -l next)^i(/home/vosh/.icons/stlarch/tile.xbm) ^fg($COLOR_LAYOUT_FG)^bg($COLOR_LAYOUT_BG)${PADDING}$layout${PADDING}^ca()"
                         ;;
                 esac
                 shift
