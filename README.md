@@ -27,5 +27,3 @@ layout:
 left click = change layout
 
 ![Screenshot](http://goput.it/mbq1.png)
-
-![Screenshot](http://s12.postimg.org/vxt4gb3bf/desktop.gif)
